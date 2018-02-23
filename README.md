@@ -1,2 +1,0 @@
-# battleship
-Battleship JavaScript Game
