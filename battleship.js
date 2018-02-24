@@ -118,12 +118,12 @@ function init () {
   var fireButton = document.getElementById("fireButton");
   fireButton.onclick = handleFireButton;
   var guessInput = document.getElementById("guessInput");
-  guessInput.onKeyPress = handleKeyPress;
-};
+  guessInput.onkeypress = handleKeyPress;
+}
 
 function handleKeyPress(e) {
   var firebutton = document.getElementById("fireButton");
-  if(e.keyCode === 13) {
+  if (e.keyCode === 13) {
     fireButton.click();
     return false;
   }   
