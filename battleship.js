@@ -116,6 +116,16 @@ function handleFireButton () {
 //this function initializes the game upon screen load, also handles the fire button, clearing user input after each "fire"
 function init () {
   var fireButton = document.getElementById("fireButton");
-  fireButton.onclick = handleFireButton; 
-}; 
+  fireButton.onclick = handleFireButton;
+  var guessInput = document.getElementById("guessInput");
+  guessInput.onKeyPress = handleKeyPress;
+};
+
+function handleKeyPress(e) {
+  var firebutton = document.getElementById("fireButton");
+  if(e.keyCode === 13) {
+    fireButton.click();
+    return false;
+  }   
+}
 window.onload = init; 
