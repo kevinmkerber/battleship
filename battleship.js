@@ -69,6 +69,10 @@ var controller = {
     if (location) {
       this.guesses++;
       var hit = model.fire(location);
+
+      console.log("hit is:" + " " + hit + " " + "model:");
+      console.dir(model);
+
       if (hit && model.shipsSunk === model.numShips) {
         view.displayMessage("You Sank My Battleships, in" + " " + this.guesses + " " + "guesses");
       }
