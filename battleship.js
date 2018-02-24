@@ -34,7 +34,7 @@ var model = {
       var ship = this.ships[x];
       var index = ship.locations.indexOf(guess);
       if (index >= 0) {
-       ship.hits[index] = "hit!";
+       ship.hits[index] = "hit";
        view.displayHit(guess);
        view.displayMessage("HIT!");
        if (this.isSunk(ship)) {
@@ -49,8 +49,12 @@ var model = {
   return false;  
   }, 
   isSunk: function(ship) {
+    console.log("isSunk, ship: ");
+    console.log(ship);
     for (var x = 0; x < this.shipLength; x++) {
+      console.log("checking hits[x]: " + ship.hits[x] + " to" +'hit');
       if (ship.hits[x] !== "hit") {
+        console.log("returniung false");
         return false; 
       }
     }
