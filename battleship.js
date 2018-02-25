@@ -59,7 +59,39 @@ var model = {
       }
     }
       return true;
-  } 
+  }
+  generateShipLocations: function() {
+    var locations;
+    for (var x = 0; x < this.numShips; x++) {
+      do {
+        locations = this.generateShip();
+      } while (this.collision(locations));
+      this.ships[x].locations = locations;
+    }
+  }, 
+  
+  generateShip: function() {
+    var direction = Math.floor(Math.random() * 2);
+    var row;
+    var col;
+    if (direction === 1) {
+     row = Math.floor(Math.random() * this.boardSize);
+     col = Math.floor(Math.random() * (this.boardsize + (this.shipLength + 1))); 
+    } else {
+      row = Math.floor(Math.random() * (this.boardSize = (this.shipLenth + 1)));
+      col = Math.floor(Math.random() * this.boardSize);
+    }
+
+    var newShipLocations = [];
+    for (var x = 0; x < this.shipLength; x++) {
+      if (direction === 1) {
+        //add location to array for new horizonal ship
+      } else {
+        //add location to array for new vertical ship
+      }
+    }
+    return newShipLocations;
+  },
 };
 //this is some various test fire settings, to make sure that we are 
 //showing hits and misses, as well as displaying the messages at the top
