@@ -25,9 +25,9 @@ var model = {
   shipLength: 3,
   shipsSunk: 0,
   //we are assigning temp locations of the ships for testing purposes  
-  ships: [  { locations: ["06", "16", "26"], hits: ["","",""] },
-            { locations: ["24", "34", "44"], hits: ["","",""] },
-            { locations: ["10", "11", "12"], hits: ["","",""] }],
+  ships: [  { locations: ["00", "00", "00"], hits: ["","",""] },
+            { locations: ["00", "00", "00"], hits: ["","",""] },
+            { locations: ["00", "00", "00"], hits: ["","",""] }],
   //this is the firing logic 
   fire: function(guess) {
     for (var x = 0; x < this.numShips; x++) {
@@ -59,7 +59,7 @@ var model = {
       }
     }
       return true;
-  }
+  },
   generateShipLocations: function() {
     var locations;
     for (var x = 0; x < this.numShips; x++) {
@@ -76,22 +76,32 @@ var model = {
     var col;
     if (direction === 1) {
      row = Math.floor(Math.random() * this.boardSize);
-     col = Math.floor(Math.random() * (this.boardsize + (this.shipLength + 1))); 
+     col = Math.floor(Math.random() * (this.boardSize - (this.shipLength + 1))); 
     } else {
-      row = Math.floor(Math.random() * (this.boardSize = (this.shipLenth + 1)));
+      row = Math.floor(Math.random() * (this.boardSize - (this.shipLength + 1)));
       col = Math.floor(Math.random() * this.boardSize);
     }
 
     var newShipLocations = [];
     for (var x = 0; x < this.shipLength; x++) {
       if (direction === 1) {
-        //add location to array for new horizonal ship
+        newShipLocations.push(row + "" + (col + x));
       } else {
-        //add location to array for new vertical ship
-      }
+      } newShipLocations.push((row + x) + "" + col);
     }
     return newShipLocations;
   },
+  collision: function(locations) {
+     for (var x = 0; x < this.numShips; x++) {
+      var ship = model.ships[x];
+      for (var y = 0; y < locations.length; y++) {
+        if (ship.locations.indexOf(locations[y]) >=0) {
+          return true;
+        }
+      }
+     }
+    return false; 
+  }
 };
 //this is some various test fire settings, to make sure that we are 
 //showing hits and misses, as well as displaying the messages at the top
@@ -151,6 +161,8 @@ function init () {
   fireButton.onclick = handleFireButton;
   var guessInput = document.getElementById("guessInput");
   guessInput.onkeypress = handleKeyPress;
+
+  model.generateShipLocations();
 }
 
 function handleKeyPress(e) {
