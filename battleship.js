@@ -24,7 +24,7 @@ var model = {
   numShips: 3,
   shipLength: 3,
   shipsSunk: 0,
-  //we are assigning temp locations of the ships for testing purposes  
+  // these are the ship prototypes, that will be filled with randomized locations
   ships: [  { locations: ["00", "00", "00"], hits: ["","",""] },
             { locations: ["00", "00", "00"], hits: ["","",""] },
             { locations: ["00", "00", "00"], hits: ["","",""] }],
@@ -49,12 +49,8 @@ var model = {
   return false;  
   }, 
   isSunk: function(ship) {
-    console.log("isSunk, ship: ");
-    console.log(ship);
     for (var x = 0; x < this.shipLength; x++) {
-      console.log("checking hits[x]: " + ship.hits[x] + " to" +'hit');
       if (ship.hits[x] !== "hit") {
-        console.log("returniung false");
         return false; 
       }
     }
@@ -62,9 +58,12 @@ var model = {
   },
   generateShipLocations: function() {
     var locations;
+    console.log("outgoing locations " + locations);
     for (var x = 0; x < this.numShips; x++) {
+      console.log(this.numShips);
       do {
         locations = this.generateShip();
+        console.log(locations);
       } while (this.collision(locations));
       this.ships[x].locations = locations;
     }
@@ -76,7 +75,7 @@ var model = {
     var col;
     if (direction === 1) {
      row = Math.floor(Math.random() * this.boardSize);
-     col = Math.floor(Math.random() * (this.boardSize - (this.shipLength + 1))); 
+     col = Math.floor(Math.random() * (this.boardSize - (this.shipLength + 1)));
     } else {
       row = Math.floor(Math.random() * (this.boardSize - (this.shipLength + 1)));
       col = Math.floor(Math.random() * this.boardSize);
@@ -115,10 +114,6 @@ var controller = {
     if (location) {
       this.guesses++;
       var hit = model.fire(location);
-
-      console.log("hit is:" + " " + hit + " " + "model:");
-      console.dir(model);
-
       if (hit && model.shipsSunk === model.numShips) {
         view.displayMessage("You Sank My Battleships, in" + " " + this.guesses + " " + "guesses");
       }
