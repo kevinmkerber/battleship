@@ -86,7 +86,8 @@ var model = {
       if (direction === 1) {
         newShipLocations.push(row + "" + (col + x));
       } else {
-      } newShipLocations.push((row + x) + "" + col);
+      newShipLocations.push((row + x) + "" + col);
+      }
     }
     return newShipLocations;
   },
